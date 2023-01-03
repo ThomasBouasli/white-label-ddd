@@ -3,13 +3,6 @@ declare global {
     interface ProcessEnv {
       NODE_ENV: 'development' | 'production' | 'test';
       DATABASE_URL: string;
-      MAIL_HOST: string;
-      MAIL_PORT: string;
-      MAIL_SECURE: string;
-      MAIL_USER: string;
-      MAIL_PASS: string;
-      MAIL_FROM: string;
-      APP_WEB_URL: string;
     }
   }
 }
