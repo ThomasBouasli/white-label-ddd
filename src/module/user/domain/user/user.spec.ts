@@ -11,6 +11,7 @@ describe('User', () => {
       email: 'john.doe@gmail.com',
       password: '12345678',
       emailVerified: false,
+      role: 'COMMON',
     });
 
     expect(user).toBeDefined();

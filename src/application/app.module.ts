@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 
-import { AuthModule } from '@module/auth/auth.module';
+import { AuthModule } from '@application/infra/auth/auth.module';
+
 import { UserModule } from '@module/user/user.module';
 
 import { PrismaService } from './infra/database/prisma';

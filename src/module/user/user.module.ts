@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { MockUserRepository } from './providers/user-repository/mock-user-repository';
+import { PrismaUserRepository } from './providers/user-repository/prisma-user-repository';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -8,7 +8,7 @@ import { UserService } from './user.service';
   providers: [
     {
       provide: 'UserRepository',
-      useClass: MockUserRepository,
+      useClass: PrismaUserRepository,
     },
 
     UserService,
@@ -17,7 +17,7 @@ import { UserService } from './user.service';
   exports: [
     {
       provide: 'UserRepository',
-      useClass: MockUserRepository,
+      useClass: PrismaUserRepository,
     },
   ],
 })

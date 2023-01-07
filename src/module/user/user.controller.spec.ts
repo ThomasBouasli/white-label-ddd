@@ -1,8 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { AuthModule } from '@module/auth/auth.module';
-
 import { MockUserRepository } from './providers/user-repository/mock-user-repository';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
@@ -12,7 +10,6 @@ describe('UserController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AuthModule],
       providers: [
         {
           provide: 'UserRepository',

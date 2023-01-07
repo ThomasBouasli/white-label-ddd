@@ -25,6 +25,7 @@ describe('MockUserMapper', () => {
       name: faker.name.fullName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
+      role: 'COMMON',
     });
 
     const persistence = MockUserMapper.toPersistence(user);
@@ -39,6 +40,7 @@ describe('MockUserMapper', () => {
       email: faker.internet.email(),
       password: faker.internet.password(),
       emailVerified: faker.datatype.boolean(),
+      role: 'COMMON',
       createdAt: faker.date.past(),
       updatedAt: faker.date.recent(),
     };
