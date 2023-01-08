@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { User } from './domain/user/user';
 import { MockUserMapper } from './providers/user-mapper/mock-user-mapper';
 import { MockUserRepository } from './providers/user-repository/mock-user-repository';
 import { UserService } from './user.service';
@@ -36,5 +35,25 @@ describe('UserService', () => {
     };
 
     expect(service.registerCommonUser(data)).resolves.not.toThrow();
+  });
+
+  it('should fail to register user', async () => {
+    const data = {
+      name: 'a',
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    };
+
+    expect(service.registerCommonUser(data)).rejects.toThrow();
+  });
+
+  it('should fail to register user', async () => {
+    const data = {
+      name: faker.name.fullName(),
+      email: 'a',
+      password: faker.internet.password(),
+    };
+
+    expect(service.registerCommonUser(data)).rejects.toThrow();
   });
 });
