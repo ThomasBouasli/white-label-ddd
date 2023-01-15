@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@shared/domain/AggregateRoot';
+import { AggregateRoot } from '@thomasbouasli/ddd-utils';
 
 import { UserCreated } from '../events/user-created';
 import { UserEmail } from './user-email';

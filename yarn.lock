@@ -895,6 +895,14 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@thomasbouasli/ddd-utils@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@thomasbouasli/ddd-utils/-/ddd-utils-1.0.9.tgz#d173638a57c3228b29061a6c66d718ab22ba8a04"
+  integrity sha512-uF1d3saQDItndGx+nJmSl7peEjxlcOdKRozQGJTzxM+AHXHBA/ahnuwWuiCeN8hzFhmrDNoHBvdadmmL53DtMA==
+  dependencies:
+    shallow-equal-object "^1.1.1"
+    uuid "^9.0.0"
+
 "@trivago/prettier-plugin-sort-imports@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@trivago/prettier-plugin-sort-imports/-/prettier-plugin-sort-imports-4.0.0.tgz#e0936d87fb8d65865c857e6a6dba644103db1b30"

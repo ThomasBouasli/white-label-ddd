@@ -1,5 +1,4 @@
-import { UniqueIdentifier } from '@shared/domain/UniqueIdentifier';
-import { IDomainEvent } from '@shared/domain/events/IDomainEvent';
+import { UniqueIdentifier, IDomainEvent } from '@thomasbouasli/ddd-utils';
 
 import { User } from '../user/user';
 

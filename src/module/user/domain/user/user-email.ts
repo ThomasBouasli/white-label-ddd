@@ -1,4 +1,4 @@
-import { ValueObject } from '@shared/domain/ValueObject';
+import { ValueObject } from '@thomasbouasli/ddd-utils';
 
 export interface UserEmailProps {
   email: string;

@@ -1,6 +1,5 @@
+import { ValueObject } from '@thomasbouasli/ddd-utils';
 import { compareSync, hashSync } from 'bcrypt';
-
-import { ValueObject } from '@shared/domain/ValueObject';
 
 export interface UserPasswordProps {
   password: string;
