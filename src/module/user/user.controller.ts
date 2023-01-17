@@ -1,7 +1,5 @@
-import { Controller, Get, Post, Request } from '@nestjs/common';
-
-import { Public } from '@application/infra/auth/decorators/public.decorator';
-import { Roles } from '@application/infra/auth/decorators/roles.decorator';
+import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { UserService } from './user.service';
 
@@ -9,20 +7,19 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Public()
+  @UseGuards(AuthGuard('local'))
+  @Post('login')
+  async login(@Request() req: any) {
+    return req.user;
+  }
+
   @Post('register')
   async register(@Request() req: any) {
-    return this.userService.registerCommonUser(req.body);
+    return this.userService.register(req.body);
   }
 
-  @Roles('ADMIN')
-  @Post('register-admin')
-  async registerAdmin(@Request() req: any) {
-    return this.userService.registerAdminUser(req.body);
-  }
-
-  @Get('/:email')
-  async getUser(@Request() req: any) {
-    return this.userService.getUser(req.params.email);
+  @Post('register-role')
+  async registerRole(@Request() req: any) {
+    return this.userService.createRole();
   }
 }

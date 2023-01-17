@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker';
+
 import { User } from './user';
 
 describe('User', () => {
@@ -6,14 +8,18 @@ describe('User', () => {
   });
 
   it('should create a valid user', () => {
-    const user = User.create({
-      name: 'John Doe',
-      email: 'john.doe@gmail.com',
-      password: '12345678',
-      emailVerified: false,
-      role: 'COMMON',
-    });
+    const dummy = {
+      name: faker.name.fullName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      roleId: faker.datatype.uuid(),
+    };
+
+    const user = User.create(dummy);
 
     expect(user).toBeDefined();
+    expect(user.name.value).toEqual(dummy.name);
+    expect(user.email.value).toEqual(dummy.email);
+    expect(user.password.value).not.toEqual(dummy.password);
   });
 });

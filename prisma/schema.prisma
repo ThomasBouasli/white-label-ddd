@@ -16,12 +16,28 @@ model User {
   email         String   @unique
   password      String
   emailVerified Boolean  @default(false)
-  role          Role     @default(COMMON)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
 
-enum Role {
-  ADMIN
-  COMMON
+model Role {
+  id          String            @id @default(cuid())
+  name        String            @unique
+  permissions RolePermissions[]
+}
+
+model RolePermissions {
+  role         Role       @relation(fields: [roleId], references: [id])
+  roleId       String
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId String
+
+  @@id([roleId, permissionId])
+  @@map("PermissionsOnRoles")
+}
+
+model Permission {
+  id    String            @id @default(cuid())
+  name  String            @unique
+  roles RolePermissions[]
 }

@@ -1,17 +1,15 @@
 import { AggregateRoot } from '@thomasbouasli/ddd-utils';
 
-import { UserCreated } from '../events/user-created';
 import { UserEmail } from './user-email';
 import { UserName } from './user-name';
 import { UserPassword } from './user-password';
-import { UserRole, UserRoleType } from './user-role';
 
 export interface UserProps {
   name: UserName;
   email: UserEmail;
   password: UserPassword;
   emailVerified: boolean;
-  role: UserRole;
+  roleId: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,7 +19,7 @@ export interface CreateUserProps {
   email: string;
   password: string;
   emailVerified?: boolean;
-  role: UserRoleType;
+  roleId: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -36,7 +34,6 @@ export class User extends AggregateRoot<UserProps> {
     const name = UserName.create(props.name);
     const email = UserEmail.create(props.email);
     const password = UserPassword.create(props.password, !!id);
-    const role = UserRole.create(props.role);
 
     if (id) {
       if (!props?.createdAt) {
@@ -51,7 +48,7 @@ export class User extends AggregateRoot<UserProps> {
         throw new Error('Update date cannot be before creation date');
       }
 
-      if (!props.role) {
+      if (!props?.roleId) {
         throw new Error('Role is required');
       }
     } else {
@@ -65,16 +62,12 @@ export class User extends AggregateRoot<UserProps> {
       email,
       password,
       emailVerified: emailVerified ?? false,
-      role,
+      roleId: props.roleId,
       createdAt: createdAt ?? new Date(),
       updatedAt: updatedAt ?? new Date(),
     };
 
     const user = new User(data, id);
-
-    if (!id) {
-      user.addDomainEvent(new UserCreated(user));
-    }
 
     return user;
   }
@@ -95,8 +88,8 @@ export class User extends AggregateRoot<UserProps> {
     return this.props.emailVerified;
   }
 
-  public get role(): UserRole {
-    return this.props.role;
+  public get roleId(): string {
+    return this.props.roleId;
   }
 
   public get createdAt(): Date {

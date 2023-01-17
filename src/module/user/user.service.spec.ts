@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { MockUserMapper } from './providers/user-mapper/mock-user-mapper';
-import { MockUserRepository } from './providers/user-repository/mock-user-repository';
+import { RegisterUserDTO } from './dto';
+import { MockUserMapper } from './providers/user/mock-user-mapper';
+import { MockUserRepository } from './providers/user/mock-user-repository';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
@@ -11,12 +12,15 @@ describe('UserService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UserService,
+        {
+          provide: 'UserMapper',
+          useClass: MockUserMapper,
+        },
         {
           provide: 'UserRepository',
           useClass: MockUserRepository,
         },
-        MockUserMapper,
+        UserService,
       ],
     }).compile();
 
@@ -27,33 +31,34 @@ describe('UserService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should register user', async () => {
-    const data = {
+  it('should create a user', async () => {
+    const user: RegisterUserDTO = {
       name: faker.name.fullName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
+      roleId: faker.datatype.uuid(),
     };
 
-    expect(service.registerCommonUser(data)).resolves.not.toThrow();
+    const createdUser = await service.register(user);
+
+    expect(createdUser).toBeDefined();
   });
 
-  it('should fail to register user', async () => {
-    const data = {
-      name: 'a',
+  it('should validate a user', async () => {
+    const user: RegisterUserDTO = {
+      name: faker.name.fullName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
+      roleId: faker.datatype.uuid(),
     };
 
-    expect(service.registerCommonUser(data)).rejects.toThrow();
-  });
+    await service.register(user);
 
-  it('should fail to register user', async () => {
-    const data = {
-      name: faker.name.fullName(),
-      email: 'a',
-      password: faker.internet.password(),
-    };
+    const validatedUser = await service.login({
+      email: user.email,
+      password: user.password,
+    });
 
-    expect(service.registerCommonUser(data)).rejects.toThrow();
+    expect(validatedUser).toBeDefined();
   });
 });

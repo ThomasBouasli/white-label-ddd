@@ -896,9 +896,9 @@
     "@sinonjs/commons" "^1.7.0"
 
 "@thomasbouasli/ddd-utils@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@thomasbouasli/ddd-utils/-/ddd-utils-1.0.9.tgz#d173638a57c3228b29061a6c66d718ab22ba8a04"
-  integrity sha512-uF1d3saQDItndGx+nJmSl7peEjxlcOdKRozQGJTzxM+AHXHBA/ahnuwWuiCeN8hzFhmrDNoHBvdadmmL53DtMA==
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@thomasbouasli/ddd-utils/-/ddd-utils-1.0.10.tgz#7b1ccc9df5c1747dd040018764088f48f85b61a5"
+  integrity sha512-zQh15BgSPd99GCscE4PUQb1gG+PKTPVIYn4CqQ6Ge1P80YshySmtbPv6EVut3h4ZKXglji8n2PztDf9/Ichr9Q==
   dependencies:
     shallow-equal-object "^1.1.1"
     uuid "^9.0.0"

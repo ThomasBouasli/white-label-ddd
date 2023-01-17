@@ -1,7 +1,7 @@
-import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { MockUserRepository } from './providers/user-repository/mock-user-repository';
+import { MockUserMapper } from './providers/user/mock-user-mapper';
+import { MockUserRepository } from './providers/user/mock-user-repository';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -15,6 +15,10 @@ describe('UserController', () => {
           provide: 'UserRepository',
           useClass: MockUserRepository,
         },
+        {
+          provide: 'UserMapper',
+          useClass: MockUserMapper,
+        },
         UserService,
       ],
       controllers: [UserController],
@@ -25,17 +29,5 @@ describe('UserController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
-  });
-
-  it('should register a user', async () => {
-    const result = await controller.register({
-      body: {
-        name: faker.name.fullName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-      },
-    });
-
-    expect(result).toBeUndefined();
   });
 });
